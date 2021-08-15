@@ -1,11 +1,20 @@
-import React, { useState, useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { ReactComponent as UploadIcon } from '../../assets/images/upload.svg';
+import { DataContext } from '../../context';
+import { fileToDataUri } from '../../util';
 
 const Sidebar = () => {
   const hiddenFileInput = useRef(null);
-  const [active, setActive] = useState(0);
+  const { active, setActive, setDocu, docu } = useContext(DataContext);
+
   const handleChange = async (e) => {
-    console.log("active")
+    if (!e) {
+      return;
+    }
+    const dataUri = await fileToDataUri(e);
+    const ext = e.name.split(".");
+    setDocu([...docu, { title: e.name, url: dataUri, type: ext[ext.length - 1] }]);
+    setActive(docu.length);
   }
   const handleUpload = () => {
     hiddenFileInput.current.click();
@@ -25,15 +34,18 @@ const Sidebar = () => {
         <button className="upload-button" onClick={handleUpload}>Upload&nbsp; <UploadIcon /></button>
       </div>
       <div className="doc-items">
-        <div
-          className={`doc-item ${active === 0 && 'active-item'}`}
-          onClick={() => {
-            setActive(0);
-          }}
-        >
-          <p className="doc-item-title">Document #1</p>
-          <p className="doc-item-author">Me, Dustin</p>
-        </div>
+        {docu.map((item, index) => (
+          <div
+            className={`doc-item ${active === index && 'active-item'}`}
+            onClick={() => {
+              setActive(index);
+            }}
+            key={index}
+          >
+            <p className="doc-item-title">{item.title ?? ''}</p>
+            <p className="doc-item-author">Me, Dustin</p>
+          </div>
+        ))}
       </div>
     </div>
   )

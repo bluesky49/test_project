@@ -1,13 +1,14 @@
 import Sidebar from './component/sidebar';
 import ContentView from './component/contentView';
 import './App.scss';
+import { DataProvider } from './context';
 
 function App() {
   return (
-    <div className="App">
+    <DataProvider>
       <Sidebar />
       <ContentView />
-    </div>
+    </DataProvider>
   );
 }
 
