@@ -1,0 +1,21 @@
+@import "./component/sidebar/sidebar.scss";
+
+@font-face {
+  font-family: Neue Alte Grotesk;
+  src: url('./assets/fonts/NeueAlteGrotesk-Regular.ttf');
+}
+
+@font-face {
+  font-family: Neue Alte Grotesk Bold;
+  src: url('./assets/fonts/NeueAlteGrotesk-Bold.ttf');
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.App {
+  display: flex;
+}
