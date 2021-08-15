@@ -7,13 +7,27 @@ const Sidebar = () => {
   const hiddenFileInput = useRef(null);
   const { active, setActive, setDocu, docu } = useContext(DataContext);
 
+  const showFile = async (file) => {
+    const ext = file.name.split(".");
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const txt = (e.target.result);
+      setDocu([...docu, { title: file.name, url: txt, type: ext[ext.length - 1] }]);
+    };
+    reader.readAsText(file);
+  }
+
   const handleChange = async (e) => {
     if (!e) {
       return;
     }
     const dataUri = await fileToDataUri(e);
     const ext = e.name.split(".");
-    setDocu([...docu, { title: e.name, url: dataUri, type: ext[ext.length - 1] }]);
+    if (ext[ext.length - 1] === 'pdf') {
+      setDocu([...docu, { title: e.name, url: dataUri, type: ext[ext.length - 1] }]);
+    } else {
+      await showFile(e);
+    }
     setActive(docu.length);
   }
   const handleUpload = () => {
