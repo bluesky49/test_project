@@ -1,0 +1,30 @@
+.content-container {
+  width: calc(100% - 260px);
+  margin-left: 260px;
+  .content-header {
+    background-color: #4077E4;
+    height: 50px;
+    color: #fff;
+    padding-left: 20px;
+    align-items: center;
+    display: flex;
+    font-family: Neue Alte Grotesk;
+    font-size: 18px;
+  }
+  .content-view {
+    padding: 25px 36px 25px 28px;
+    border: 1px solid #E8EAEF;
+    height: calc(100vh - 50px);
+    overflow-x: hidden;
+    .content-page {
+      margin-bottom: 20px;
+    }
+    .react-pdf__Page__canvas {
+      width: 100% !important;
+      height: fit-content !important;
+    }
+    .react-pdf__Page__textContent {
+      width: 100% !important;
+    }
+  }
+}
