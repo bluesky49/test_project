@@ -57,3 +57,25 @@
     background-color: #FFFFFF;
   }
 }
+
+.close-button {
+  display: none;
+}
+@media (max-width: 768px) {
+  .sidebar-container {
+    width: 180px;
+    z-index: 1;
+  }
+}
+@media (max-width: 550px) {
+  .sidebar-container {
+    width: 260px;
+    transition: 350ms;
+  }
+  .drawclose {
+    left: -100%;
+  }
+  .close-button {
+    display: block;
+  }
+}

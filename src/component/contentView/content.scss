@@ -16,6 +16,10 @@
     border: 1px solid #E8EAEF;
     height: calc(100vh - 50px);
     overflow-x: hidden;
+    .content-text {
+      font-family: Neue Alte Grotesk;
+      font-size: 14px;
+    }
     .content-page {
       margin-bottom: 20px;
     }
@@ -26,5 +30,28 @@
     .react-pdf__Page__textContent {
       width: 100% !important;
     }
+  }
+}
+.menu-button {
+  display: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+@media (max-width: 768px) {
+  .content-container {
+    margin-left: 180px;
+    width: calc(100% - 180px);
+  }
+}
+@media (max-width: 550px) {
+  .content-container {
+    margin-left: 0;
+    width: 100%;
+  }
+  .menu-button {
+    display: block;
   }
 }

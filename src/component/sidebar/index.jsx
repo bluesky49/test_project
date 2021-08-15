@@ -1,11 +1,12 @@
-import React, { useContext, useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import { ReactComponent as UploadIcon } from '../../assets/images/upload.svg';
 import { DataContext } from '../../context';
-import { fileToDataUri } from '../../util';
+import { fileToDataUri, useWindowSize } from '../../util';
+import { ReactComponent as CloseIcon } from '../../assets/images/close.svg';
 
 const Sidebar = () => {
   const hiddenFileInput = useRef(null);
-  const { active, setActive, setDocu, docu } = useContext(DataContext);
+  const { active, setActive, setDocu, docu, drawer, setDrawer } = useContext(DataContext);
 
   const showFile = async (file) => {
     const ext = file.name.split(".");
@@ -16,7 +17,6 @@ const Sidebar = () => {
     };
     reader.readAsText(file);
   }
-
   const handleChange = async (e) => {
     if (!e) {
       return;
@@ -29,13 +29,15 @@ const Sidebar = () => {
       await showFile(e);
     }
     setActive(docu.length);
+    setDrawer(false);
   }
   const handleUpload = () => {
     hiddenFileInput.current.click();
   }
+  const isMobile = useWindowSize().width < 550;
 
   return (
-    <div className="sidebar-container">
+    <div className={`sidebar-container ${isMobile && (drawer ? "" : "drawclose")}`}>
       <div className="upload-container">
         <input
           type="file"
@@ -46,6 +48,7 @@ const Sidebar = () => {
         />
         <p className="upload-text">files</p>
         <button className="upload-button" onClick={handleUpload}>Upload&nbsp; <UploadIcon /></button>
+        <button className="upload-button close-button" onClick={() => setDrawer(false)}><CloseIcon /></button>
       </div>
       <div className="doc-items">
         {docu.map((item, index) => (
@@ -53,6 +56,7 @@ const Sidebar = () => {
             className={`doc-item ${active === index && 'active-item'}`}
             onClick={() => {
               setActive(index);
+              setDrawer(false);
             }}
             key={index}
           >
